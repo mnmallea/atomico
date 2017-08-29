@@ -2,6 +2,10 @@ import centrales.*
 
 object regionAtomica{
 	var ciudades = #{springfield,albuquerque}
+	
+	method centralesMasProductoras(){
+		return ciudades.map({unaCiudad => unaCiudad.centralMasProductora()})
+	}
 }
 
 object springfield{
@@ -36,6 +40,9 @@ object springfield{
 	method centralesContaminantesAportanMasQue(unPorcentaje){
 		return (self.centralesContaminantes().sum({unaCentral => unaCentral.produccionEnergetica(self)})> necesidadEnergetica * unPorcentaje / 100)
 	}
+	method centralMasProductora(){
+		return centrales.max({unaCentral => unaCentral.produccionEnergetica(self)})
+	}
 }
 
 object albuquerque{
@@ -43,4 +50,5 @@ object albuquerque{
 	var central = centralHidroelectrica
 	
 	method caudalRio() = caudalRio
+	method centralMasProductora() = central
 }

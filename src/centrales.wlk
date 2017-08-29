@@ -8,7 +8,7 @@ object burns{
 	method produccionEnergetica(unaCiudad){
 		return 0.1 * varillasDeUranio
 	}
-	method contaminacion(){
+	method esContaminante(){
 		return varillasDeUranio > 20
 	}
 	
@@ -23,23 +23,23 @@ object exBosque{
 	method produccionEnergetica(unaCiudad){
 		return 0.5 + capacidad * unaCiudad.riquezaDelSuelo()
 	}
-	method contaminacion(){
+	method esContaminante(){
 		return true
 	}
 }
 
 object elSuspiro{
-	var turbinas = #{turbina}
+	var turbinas = #{unaTurbina}
 	
 	method produccionEnergetica(unaCiudad){
 		return turbinas.sum({unaTurbina => unaTurbina.produccionEnergetica(unaCiudad)})
 	}
-	method contaminacion(){
+	method esContaminante(){
 		return false
 	}
 }
 
-object turbina{
+object unaTurbina{
 	method produccionEnergetica(unaCiudad){
 		return 0.2 * unaCiudad.velocidadDelViento()
 	}

@@ -19,6 +19,7 @@ object springfield{
 	method necesidadEnergetica(unaNecesidad){
 		necesidadEnergetica=unaNecesidad
 	}
+	
 	method agregarCentral(unaCentral){
 		centrales.add(unaCentral)
 	}
@@ -29,16 +30,19 @@ object springfield{
 		return self.produccionEnergeticaTotal() > necesidadEnergetica
 	}
 	method centralesContaminantes(){
-		return centrales.filter({unaCentral=>unaCentral.contaminacion()})
+		return centrales.filter({unaCentral=>unaCentral.esContaminante()})
 	}
 	method alHorno(){
 		return self.todasCentralesContaminantes() || self.centralesContaminantesAportanMasQue(50)
 	}
 	method todasCentralesContaminantes(){
-		return centrales.all({unaCentral=>unaCentral.contaminacion()})
+		return centrales.all({unaCentral=>unaCentral.esContaminante()})
 	}
 	method centralesContaminantesAportanMasQue(unPorcentaje){
-		return (self.centralesContaminantes().sum({unaCentral => unaCentral.produccionEnergetica(self)})> necesidadEnergetica * unPorcentaje / 100)
+		return self.produccionCentralesContaminantes() > necesidadEnergetica * unPorcentaje / 100
+	}
+	method produccionCentralesContaminantes(){
+		return self.centralesContaminantes().sum({unaCentral => unaCentral.produccionEnergetica(self)})
 	}
 	method centralMasProductora(){
 		return centrales.max({unaCentral => unaCentral.produccionEnergetica(self)})
@@ -50,5 +54,8 @@ object albuquerque{
 	var central = centralHidroelectrica
 	
 	method caudalRio() = caudalRio
-	method centralMasProductora() = central //como albuquerque tiene una unica central esta siempre sera la mas productiva
+	
+	method centralMasProductora(){//como albuquerque tiene una unica central esta siempre sera la mas productiva
+		return central
+	}
 }

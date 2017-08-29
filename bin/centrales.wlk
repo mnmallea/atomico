@@ -1,4 +1,4 @@
-object centralAtomica{
+object burns{
 	var varillasDeUranio
 	
 	method varillasDeUranio(cuantasVarillas){
@@ -14,7 +14,7 @@ object centralAtomica{
 	
 }
 
-object centralDeCarbon{
+object exBosque{
 	var capacidad
 	
 	method capacidad(nuevaCapacidad){
@@ -28,7 +28,7 @@ object centralDeCarbon{
 	}
 }
 
-object centralEolica{
+object elSuspiro{
 	var turbinas = #{turbina}
 	
 	method produccionEnergetica(unaCiudad){

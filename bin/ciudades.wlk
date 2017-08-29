@@ -50,5 +50,5 @@ object albuquerque{
 	var central = centralHidroelectrica
 	
 	method caudalRio() = caudalRio
-	method centralMasProductora() = central
+	method centralMasProductora() = central //como albuquerque tiene una unica central esta siempre sera la mas productiva
 }

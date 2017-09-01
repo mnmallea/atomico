@@ -1,52 +1,59 @@
 import centrales.*
 import ciudades.*
 
-// no me estaria tomando los describes
-test " burns con 10 varillas produce 1 mkwh en springfield"{
+describe "Tests de la consigna" {
+	test " burns con 10 varillas produce 1 mkwh en springfield" {
 		burns.varillasDeUranio(10)
-		assert.equals(1,burns.produccionEnergetica(springfield))
-		
-}
-test "exBosque con capacidad 20, produce 18.5 mkwh en springfield"{
-	exBosque.capacidad(20)
-	assert.equals(18.5,exBosque.produccionEnergetica(springfield))
-}
-test "elSuspiro produce 2 mkwh en springfield"{
-	assert.equals(2,elSuspiro.produccionEnergetica(springfield))
-}
-test "las centrales contaminantes de springfield es solo exBosque"{
-	springfield.agregarCentral(elSuspiro)
-	springfield.agregarCentral(burns)
-	springfield.agregarCentral(exBosque)
-	springfield.necesidadEnergetica(20)
-	burns.varillasDeUranio(10)
-	exBosque.capacidad(20)
-	assert.that(springfield.centralesContaminantes().contains(exBosque))
-	assert.equals(1,springfield.centralesContaminantes().size())
-}
-test "con todas las centrales, springfield cubrio su necesidad energetica de 20mkwh"{
-	springfield.agregarCentral(elSuspiro)
-	springfield.agregarCentral(burns)
-	springfield.agregarCentral(exBosque)
-	springfield.necesidadEnergetica(20)
-	burns.varillasDeUranio(10)
-	exBosque.capacidad(20)
-	assert.that(springfield.cubrioNecesidadesEnergeticas())
-}
-test "con lo anterior, springfield esta al horno si posse una necesdidad de 30 mkwh"{
-	springfield.agregarCentral(elSuspiro)
-	springfield.agregarCentral(burns)
-	springfield.agregarCentral(exBosque)
-	springfield.necesidadEnergetica(30)
-	burns.varillasDeUranio(10)
-	exBosque.capacidad(20)
-	assert.that(springfield.alHorno())
-}
-test "las centrales mas productoras de la region, son el exBosque y la central hidroelectrica"{
-	springfield.agregarCentral(elSuspiro)
-	springfield.agregarCentral(burns)
-	springfield.agregarCentral(exBosque)
-	burns.varillasDeUranio(10)
-	exBosque.capacidad(20)
-	assert.equals(#{exBosque,centralHidroelectrica}, regionAtomica.centralesMasProductoras().asSet())
-}
+		assert.equals(1, burns.produccionEnergetica(springfield))
+
+	}
+	test "exBosque con capacidad 20, produce 18.5 mkwh en springfield" {
+		exBosque.capacidad(20)
+		assert.equals(18.5, exBosque.produccionEnergetica(springfield))
+	}
+	test "elSuspiro produce 2 mkwh en springfield" {
+		assert.equals(2, elSuspiro.produccionEnergetica(springfield))
+	}
+	test "las centrales contaminantes de springfield es solo exBosque" {
+		springfield.agregarCentral(elSuspiro)
+		springfield.agregarCentral(burns)
+		springfield.agregarCentral(exBosque)
+		springfield.necesidadEnergetica(20)
+		burns.varillasDeUranio(10)
+		exBosque.capacidad(20)
+		assert.that(springfield.centralesContaminantes().contains(exBosque))
+		assert.equals(1, springfield.centralesContaminantes().size())
+	}
+	test
+	"con todas las centrales anteriores, springfield cubrio su necesidad energetica de 20mkwh"
+	{
+		springfield.agregarCentral(elSuspiro)
+		springfield.agregarCentral(burns)
+		springfield.agregarCentral(exBosque)
+		springfield.necesidadEnergetica(20)
+		burns.varillasDeUranio(10)
+		exBosque.capacidad(20)
+		assert.that(springfield.cubrioNecesidadesEnergeticas())
+	}
+	test
+	"con lo anterior, springfield esta al horno si posse una necesdidad de 30 mkwh"
+	{
+		springfield.agregarCentral(elSuspiro)
+		springfield.agregarCentral(burns)
+		springfield.agregarCentral(exBosque)
+		springfield.necesidadEnergetica(30)
+		burns.varillasDeUranio(10)
+		exBosque.capacidad(20)
+		assert.that(springfield.alHorno())
+	}
+	test
+	"con lo anterior, las centrales mas productoras de la region, son el exBosque y la central hidroelectrica"
+	{
+		springfield.agregarCentral(elSuspiro)
+		springfield.agregarCentral(burns)
+		springfield.agregarCentral(exBosque)
+		burns.varillasDeUranio(10)
+		exBosque.capacidad(20)
+		assert.equals(#{ exBosque, centralHidroelectrica}, regionAtomica.centralesMasProductoras().asSet())
+	}
+} 
